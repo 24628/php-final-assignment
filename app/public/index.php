@@ -5,9 +5,11 @@ if (session_status() === PHP_SESSION_NONE) {
 
 require str_replace("/public", "", __DIR__ . "/Private/Controllers/HomeController.php");
 require str_replace("/public", "", __DIR__ . "/Private/Controllers/LoginController.php");
+require str_replace("/public", "", __DIR__ . "/Private/Controllers/PostController.php");
 
 use App\Private\Controllers\HomeController\HomeController;
 use App\Private\Controllers\LoginController\LoginController;
+use App\Private\Controllers\PostController\PostController;
 
 
 $request = $_SERVER['REQUEST_URI'];
@@ -25,7 +27,16 @@ switch ($request) {
         (new LoginController())->post($_POST);
         break;
     case '/admin':
-        (new LoginController())->post($_POST);
+        (new PostController())->index();
+        break;
+    case '/post-create':
+        (new PostController())->create();
+        break;
+    case '/post-save':
+        (new PostController())->save($_POST);
+        break;
+    case '/get-posts':
+        (new PostController())->getPosts();
         break;
     default:
         http_response_code(404);

@@ -1,12 +1,9 @@
 <?php
 namespace App\Private\Controllers\LoginController;
 
-require str_replace("/Controllers", "", __DIR__ . "/Database/DB.php");
-require str_replace("/Controllers", "", __DIR__ . "/Models/User.php");
-
 use App\Private\Controllers\MainController\MainController;
-use App\Private\Database\MainController\DB;
-use App\Private\Models\User\User;
+use App\Private\Database\DB;
+use App\Private\Models\User;
 use JetBrains\PhpStorm\NoReturn;
 use PDO;
 

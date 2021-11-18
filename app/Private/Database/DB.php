@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Private\Database\MainController;
+namespace App\Private\Database;
 
 use PDO;
 
