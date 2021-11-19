@@ -38,6 +38,15 @@ switch ($request) {
     case '/get-posts':
         (new PostController())->getPosts();
         break;
+    case '/post-delete':
+        (new PostController())->delete($_POST);
+        break;
+    case '/post-update':
+        (new PostController())->show($_POST);
+        break;
+    case '/post-update-save':
+        (new PostController())->update($_POST);
+        break;
     default:
         http_response_code(404);
         echo "404";

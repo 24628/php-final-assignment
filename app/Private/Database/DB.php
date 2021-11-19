@@ -14,7 +14,6 @@ class DB {
     private string $pass = "secret123";
     private string $name = "phpProject";
 
-    // The db connection is established in the private constructor.
     private function __construct()
     {
         $this->conn = new PDO("mysql:host={$this->host};
@@ -39,5 +38,3 @@ class DB {
     }
 }
 
-//$instance = DB::getInstance();
-//$conn = $instance->getConnection();

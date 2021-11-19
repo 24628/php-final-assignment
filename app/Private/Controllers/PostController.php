@@ -43,16 +43,79 @@ class PostController extends MainController {
         $this->Redirect("/admin");
     }
 
-    public function show(){
+    public function show($request){
+        $id = htmlspecialchars($request["update-id"]);
 
+        if(!isset($id)){
+            http_response_code(403);
+            return;
+        }
+
+        $stmt = DB::getInstance()->getConnection()->prepare("SELECT * FROM posts WHERE id=:id");
+        $stmt->bindParam(':id', $id);
+        $stmt->execute();
+
+        $result = $stmt->fetchAll(PDO::FETCH_ASSOC)[0];
+
+        if(empty($result)){
+            http_response_code(403);
+            return;
+        }
+
+        $html = '
+            <div style="width: 100%;
+                height: 100%;
+                align-items: center;
+                display: flex;
+                justify-content: center;"
+            >
+                <form class="form-signin text-center" action="/post-update-save" method="post" style="min-width: 500px">
+                    <h1 class="h3 mb-3 font-weight-normal">Update Post</h1>
+                    <input type="hidden" value="'.$result["id"].'" name="update-id">
+                    <input type="text" id="inputName" class="form-control" placeholder="Title" name="title" value="'.$result["title"].'" required autofocus>
+                    <textarea style="height: 300px" class="form-control" placeholder="description" name="description">'.$result["description"].'</textarea>
+            
+                    <div style="width: 100%; display: flex; align-content: end; flex-direction: row-reverse;">
+                        <button class="btn btn-lg btn-primary btn-block" style="width: 100px" type="submit">Submit</button>
+                    </div>
+                </form>
+            </div>
+        ';
+
+        $this->view($html);
     }
 
-    public function update(){
+    public function update($request){
+        $id = htmlspecialchars($request["update-id"]);
+        $title = htmlspecialchars($request["title"]);
+        $description = htmlspecialchars($request["description"]);
 
+        if(!isset($id) && !isset($title) && !isset($description)){
+            http_response_code(403);
+            return;
+        }
+
+        $stmt = DB::getInstance()->getConnection()->prepare("UPDATE posts SET title = :title, description = :description WHERE id = :id");
+        $stmt->bindParam(':id', $id);
+        $stmt->bindParam(':title', $title);
+        $stmt->bindParam(':description', $description);
+        $stmt->execute();
+
+        $this->Redirect("/admin");
     }
 
-    public function delete(){
+    public function delete($request){
+        $id = htmlspecialchars($request["delete-id"]);
 
+        if(!isset($id)){
+            http_response_code(403);
+            return;
+        }
+
+        $stmt = DB::getInstance()->getConnection()->prepare("DELETE FROM  posts WHERE id = :id");
+        $stmt->bindParam(':id', $id);
+        $stmt->execute();
+        $this->Redirect("/admin");
     }
 
     public function getPosts()

@@ -97,8 +97,18 @@
                 div.innerHTML +=`
                 <td>${item.id}</td>
                 <td>${item.title}</td>
-                <td><a class="btn btn-primary" href="${window.origin + "/post-show/" + item.id}" role="button">update</a></td>
-                <td><a class="btn btn-danger" href="${window.origin + "/post-delete/" + item.id}"  role="button">delete</a></td>
+                <td>
+                    <form action="/post-update" method="post">
+                        <input type="hidden" value="${item.id}}" name="update-id">
+                        <button class="btn btn-primary" role="button">update</button>
+                    </form>
+                </td>
+                <td>
+                    <form action="/post-delete" method="post">
+                        <input type="hidden" value="${item.id}}" name="delete-id">
+                        <button class="btn btn-danger" role="button">delete</button>
+                    </form>
+                </td>
             </tr>`;
             })
         }
@@ -107,4 +117,12 @@
     customElements.define('post-component', PostComponent);
 </script>
 
-<post-component style="padding: 20px 30px;"></post-component>
+<div style="height: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: 30px 20px;
+    align-items: end">
+<post-component style="width: 100%;"></post-component>
+
+<a class="btn btn-primary" style="width: 120px; margin-top: auto" href="/post-create" role="button">create</a>
+</div>
