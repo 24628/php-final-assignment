@@ -1,4 +1,6 @@
 {
     "name": "merlijn/php-final-assignment",
-    "require": {}
+    "require": {
+        "ext-pdo": "*"
+    }
 }
