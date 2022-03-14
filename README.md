@@ -9,6 +9,9 @@ Or run:
 ```bash
 docker-compose down
 ```
- login
-username: admin
-password: password
+## login
+1. username: admin
+2. password: password
+
+## url
+https://webbiedevvie1.herokuapp.com/
