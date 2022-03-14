@@ -9,3 +9,6 @@ Or run:
 ```bash
 docker-compose down
 ```
+ login
+username: admin
+password: password
