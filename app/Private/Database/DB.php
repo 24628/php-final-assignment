@@ -9,29 +9,23 @@ class DB {
     private static ?DB $instance = null;
     private PDO $conn;
 
+    private string $type = '';
     private string $host = "mysql";
     private string $user = "root";
     private string $pass = "secret123";
-    private string $name = "phpProject";
+    private string $databaseName = "phpProject";
 
     private function __construct()
     {
         if(getenv('DATABASE_URL') != ""){
             $dbopts = parse_url(getenv('DATABASE_URL'));
+            $this->type = "pgsql";
             $this->host = $dbopts["host"];
             $this->user = $dbopts["user"];
             $this->pass = $dbopts["pass"];
-            $this->name = ltrim($dbopts["path"], '/');
+            $this->databaseName = ltrim($dbopts["path"], '/');
         }
-        $this->conn = new PDO(
-            "mysql:host={$this->host};
-        dbname={$this->name}",
-            $this->user,$this->pass,
-            array(
-                PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES 'utf8'"
-            )
-        );
-
+        $this->conn = new PDO("$this->type:host=$this->host;dbname=$this->databaseName", $this->user, $this->pass);
 
         $this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     }
