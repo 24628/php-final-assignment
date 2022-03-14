@@ -62,7 +62,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `password`) VALUES
-(1, 'admin', 'test');
+(1, 'admin', 'password');
 
 --
 -- Indexes for dumped tables
