@@ -99,13 +99,13 @@
                 <td>${item.title}</td>
                 <td>
                     <form action="/post-update" method="post">
-                        <input type="hidden" value="${item.id}}" name="update-id">
+                        <input type="hidden" value="${item.id}" name="update-id">
                         <button class="btn btn-primary" role="button">update</button>
                     </form>
                 </td>
                 <td>
                     <form action="/post-delete" method="post">
-                        <input type="hidden" value="${item.id}}" name="delete-id">
+                        <input type="hidden" value="${item.id}" name="delete-id">
                         <button class="btn btn-danger" role="button">delete</button>
                     </form>
                 </td>
