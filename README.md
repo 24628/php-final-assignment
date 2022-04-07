@@ -15,3 +15,14 @@ docker-compose down
 
 ## url
 https://webbiedevvie1.herokuapp.com/
+
+## Localhost
+http://localhost:8080/ phpadmin location
+
+http://localhost:90/ site location
+
+## Opzetten database localhost
+gebruik de phpProject.sql file die graag importeren en in de database zetten
+
+
+

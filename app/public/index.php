@@ -52,5 +52,4 @@ switch ($request) {
         echo "404";
         break;
 }
-//http://localhost:8080/ phpadmin location
-//http://localhost:90/ site location
+
