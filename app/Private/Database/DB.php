@@ -24,8 +24,12 @@ class DB {
             $this->user = $dbopts["user"];
             $this->pass = $dbopts["pass"];
             $this->databaseName = ltrim($dbopts["path"], '/');
+            $this->conn = new PDO("$this->type:host=$this->host;dbname=$this->databaseName", $this->user, $this->pass);
+        } else  {
+            $this->conn = new PDO("mysql:host={$this->host};
+    dbname={$this->databaseName}", $this->user,$this->pass,
+                array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES 'utf8'"));
         }
-        $this->conn = new PDO("$this->type:host=$this->host;dbname=$this->databaseName", $this->user, $this->pass);
 
         $this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     }
