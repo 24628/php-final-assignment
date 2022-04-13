@@ -2,10 +2,8 @@
 namespace App\Private\Controllers\LoginController;
 
 use App\Private\Controllers\MainController\MainController;
-use App\Private\Database\DB;
 use App\Private\Models\User;
 use JetBrains\PhpStorm\NoReturn;
-use PDO;
 
 class LoginController extends MainController {
 
@@ -25,13 +23,7 @@ class LoginController extends MainController {
             return;
         }
 
-        $stmt = DB::getInstance()->getConnection()->prepare("SELECT * FROM users WHERE name=:name AND password=:password");
-        $stmt->bindParam(':name', $name);
-        $stmt->bindParam(':password', $password);
-
-        $stmt->execute();
-
-        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $result = User::login($name, $password);
 
         if(empty($result)){
             http_response_code(403);

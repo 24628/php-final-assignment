@@ -2,9 +2,7 @@
 namespace App\Private\Controllers\PostController;
 
 use App\Private\Controllers\MainController\MainController;
-use App\Private\Database\DB;
-use PDO;
-
+use App\Private\Models\Post;
 
 class PostController extends MainController {
 
@@ -35,10 +33,7 @@ class PostController extends MainController {
             return;
         }
 
-        $stmt = DB::getInstance()->getConnection()->prepare("INSERT INTO posts (title, description) VALUES (:title, :description)");
-        $stmt->bindParam(':title', $title);
-        $stmt->bindParam(':description', $description);
-        $stmt->execute();
+        Post::save($title, $description);
 
         $this->Redirect("/admin");
     }
@@ -51,11 +46,7 @@ class PostController extends MainController {
             return;
         }
 
-        $stmt = DB::getInstance()->getConnection()->prepare("SELECT * FROM posts WHERE id=:id");
-        $stmt->bindParam(':id', $id);
-        $stmt->execute();
-
-        $result = $stmt->fetchAll(PDO::FETCH_ASSOC)[0];
+        $result = Post::find($id);
 
         if(empty($result)){
             http_response_code(403);
@@ -95,11 +86,7 @@ class PostController extends MainController {
             return;
         }
 
-        $stmt = DB::getInstance()->getConnection()->prepare("UPDATE posts SET title = :title, description = :description WHERE id = :id");
-        $stmt->bindParam(':id', $id);
-        $stmt->bindParam(':title', $title);
-        $stmt->bindParam(':description', $description);
-        $stmt->execute();
+        Post::update($id, $title, $description);
 
         $this->Redirect("/admin");
     }
@@ -112,21 +99,14 @@ class PostController extends MainController {
             return;
         }
 
-        $stmt = DB::getInstance()->getConnection()->prepare("DELETE FROM  posts WHERE id = :id");
-        $stmt->bindParam(':id', $id);
-        $stmt->execute();
+        Post::delete($id);
         $this->Redirect("/admin");
     }
 
     public function getPosts()
     {
-        $stmt = DB::getInstance()->getConnection()->prepare("SELECT * FROM posts");
-        $stmt->execute();
-
-        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
         header('Content-type: application/json');
-        echo json_encode( $result );
+        echo json_encode( Post::getAllPost() );
     }
 
 }

@@ -5,18 +5,14 @@ namespace App\Private\Controllers\HomeController;
 include "MainController.php";
 
 use App\Private\Controllers\MainController\MainController;
-use App\Private\Database\DB;
-use PDO;
+use App\Private\Models\Post;
 
 class HomeController extends MainController
 {
 
     public function index()
     {
-        $stmt = DB::getInstance()->getConnection()->prepare("SELECT * FROM posts");
-        $stmt->execute();
-
-        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $result = Post::getAllPost();
 
 
         $html = '<div style="margin: 20px 30px;">';

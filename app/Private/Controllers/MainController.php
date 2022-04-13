@@ -3,6 +3,7 @@ namespace App\Private\Controllers\MainController;
 
 require str_replace("/Controllers", "", __DIR__ . "/Database/DB.php");
 require str_replace("/Controllers", "", __DIR__ . "/Models/User.php");
+require str_replace("/Controllers", "", __DIR__ . "/Models/Post.php");
 
 use JetBrains\PhpStorm\NoReturn;
 
