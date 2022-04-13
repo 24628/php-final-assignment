@@ -6,6 +6,7 @@ include "MainController.php";
 
 use App\Private\Controllers\MainController\MainController;
 use App\Private\Models\Post;
+use \Template;
 
 class HomeController extends MainController
 {
@@ -14,20 +15,7 @@ class HomeController extends MainController
     {
         $result = Post::getAllPost();
 
-
-        $html = '<div style="margin: 20px 30px;">';
-        foreach ($result as $post) {
-            $html .= '
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title">'.$post["title"].'</h5>
-                        <p class="card-text">'.$post["description"].'</p>
-                    </div>
-                </div>
-        ';
-        }
-        $html .= '</div>';
-
-        $this->view($html);
+        $template = new Template(dirname(__DIR__, 1)."/views", ['lang' => 'en']);
+        echo $template->render('Home.php', ['posts' => $result]);
     }
 }

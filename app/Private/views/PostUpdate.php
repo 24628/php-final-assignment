@@ -28,8 +28,8 @@
 <body>
 
 <?php if(isset($_SESSION["name"])) {
-echo
-'<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    echo
+    '<nav class="navbar navbar-expand-lg navbar-light bg-light">
     <ul class="navbar-nav">
         <li class="nav-item active">
             <a class="nav-link" href="/">Home</a>
@@ -43,7 +43,7 @@ echo
     </ul>
 </nav>';
 } else {
-echo '<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    echo '<nav class="navbar navbar-expand-lg navbar-light bg-light">
     <ul class="navbar-nav">
         <li class="nav-item active">
             <a class="nav-link" href="/">Home</a>
@@ -55,19 +55,22 @@ echo '<nav class="navbar navbar-expand-lg navbar-light bg-light">
 </nav>';
 }?>
 
-<h1>Home Page!</h1>
-<div style="margin: 20px 30px;">
-<?php if (isset($posts)) {
-    foreach ($posts as $post) { ?>
-        <div class="card">
-            <div class="card-body">
-                <h5 class="card-title"><?php echo $post["title"]?></h5>
-                <p class="card-text"><?php echo $post["description"]?></p>
-            </div>
-        </div>
+<div style="width: 100%;
+                height: 100%;
+                align-items: center;
+                display: flex;
+                justify-content: center;"
+>
+    <form class="form-signin text-center" action="/post-update-save" method="post" style="min-width: 500px">
+        <h1 class="h3 mb-3 font-weight-normal">Update Post</h1>
+        <input type="hidden" value="<?php echo $post["id"]?>" name="update-id">
+        <input type="text" id="inputName" class="form-control" placeholder="Title" name="title" value="<?php echo $post["title"]?>" required autofocus>
+        <textarea style="height: 300px" class="form-control" placeholder="description" name="description"><?php echo $post["description"]?></textarea>
 
-    <?php }
-} ?>
+        <div style="width: 100%; display: flex; align-content: end; flex-direction: row-reverse;">
+            <button class="btn btn-lg btn-primary btn-block" style="width: 100px" type="submit">Submit</button>
+        </div>
+    </form>
 </div>
 
 <footer class="bg-light text-center text-lg-start">

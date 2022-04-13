@@ -4,12 +4,14 @@ namespace App\Private\Controllers\LoginController;
 use App\Private\Controllers\MainController\MainController;
 use App\Private\Models\User;
 use JetBrains\PhpStorm\NoReturn;
+use Template;
 
 class LoginController extends MainController {
 
     public function index(){
 
-        $this->view(file_get_contents(str_replace("/Controllers", "", __DIR__ . '/views/Login.php')));
+        $template = new Template(dirname(__DIR__, 1)."/views", ['lang' => 'en']);
+        echo $template->render('Login.php', []);
     }
 
     public function post(array $request)

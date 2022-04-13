@@ -3,6 +3,7 @@ namespace App\Private\Controllers\PostController;
 
 use App\Private\Controllers\MainController\MainController;
 use App\Private\Models\Post;
+use Template;
 
 class PostController extends MainController {
 
@@ -17,11 +18,13 @@ class PostController extends MainController {
 
     public function index(){
 
-        $this->view(file_get_contents(str_replace("/Controllers", "", __DIR__ . '/views/Admin.php')));
+        $template = new Template(dirname(__DIR__, 1)."/views", ['lang' => 'en']);
+        echo $template->render('Admin.php', []);
     }
 
     public function create(){
-        $this->view(file_get_contents(str_replace("/Controllers", "", __DIR__ . '/views/PostCreate.php')));
+        $template = new Template(dirname(__DIR__, 1)."/views", ['lang' => 'en']);
+        echo $template->render('PostCreate.php', []);
     }
 
     public function save($request){
@@ -53,27 +56,8 @@ class PostController extends MainController {
             return;
         }
 
-        $html = '
-            <div style="width: 100%;
-                height: 100%;
-                align-items: center;
-                display: flex;
-                justify-content: center;"
-            >
-                <form class="form-signin text-center" action="/post-update-save" method="post" style="min-width: 500px">
-                    <h1 class="h3 mb-3 font-weight-normal">Update Post</h1>
-                    <input type="hidden" value="'.$result["id"].'" name="update-id">
-                    <input type="text" id="inputName" class="form-control" placeholder="Title" name="title" value="'.$result["title"].'" required autofocus>
-                    <textarea style="height: 300px" class="form-control" placeholder="description" name="description">'.$result["description"].'</textarea>
-            
-                    <div style="width: 100%; display: flex; align-content: end; flex-direction: row-reverse;">
-                        <button class="btn btn-lg btn-primary btn-block" style="width: 100px" type="submit">Submit</button>
-                    </div>
-                </form>
-            </div>
-        ';
-
-        $this->view($html);
+        $template = new Template(dirname(__DIR__, 1)."/views", ['lang' => 'en']);
+        echo $template->render('PostUpdate.php', ['post' => $result]);
     }
 
     public function update($request){
